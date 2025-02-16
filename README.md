@@ -1,2 +1,2 @@
 # Data-Structure-Using-C-
-Stack Queue Linklist
+Stack Queue Linkedlist
