@@ -29,16 +29,12 @@ queue* inqueue(int data)
         qu->rear= (qu->rear+1)%qu->size;
         qu->arr[qu->rear]=data;
         printf("Inserting %d in the Queue...\n",data);
-        printf("%d\n",qu->rear);
-        printf("%d\n",qu->front);
     }
     else if((qu->rear+1)%qu->size != qu->front)
     { 
         qu->rear=(qu->rear+1)%qu->size; 
         qu->arr[qu->rear]=data;
         printf("Inserting %d in the Queue...\n",data);
-        printf("%d\n",qu->rear);
-        printf("%d\n",qu->front);
     }
     else{
         printf("Queue Overflow!\n");
