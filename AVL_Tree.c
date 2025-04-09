@@ -67,23 +67,8 @@ tree *LRRotate(tree *root)
     mid->right = tmp;
     return RRRotate(root);
 }
-tree *Balancing(tree *root,int data)
+tree *BalancingI(tree *root,int data)
 {
-    tree *temp;
-    if(root->data == data)
-    {
-        return root;
-    }
-    else{
-        if(data < root->data)
-        {
-            root->left = Balancing(root->left,data);
-        }
-        else
-        {
-            root->right = Balancing(root->right,data);
-        }
-    }
         int BF=balanceFac(root);
         if(BF>1 && data<root->left->data)
         {
@@ -103,6 +88,36 @@ tree *Balancing(tree *root,int data)
         }
     return root;
 }
+tree *insertNode(tree *root,int data)
+{
+    if(root==NULL)
+    {
+        tree *temp=(tree*)malloc(sizeof(tree));
+        temp->data=data;
+        temp->left=temp->right=NULL;
+        root=temp;
+        return root;
+    }
+    if(root->data >= data && root->left != NULL)
+        {
+            root->left=insertNode(root->left,data);
+        }
+    else if(root->data < data && root->right != NULL)
+        {
+            root->right=insertNode(root->right,data);
+        }
+    else{
+            tree *temp=(tree*)malloc(sizeof(tree));
+            temp->data=data;
+            temp->left=temp->right=NULL;
+            if(root->data >= data)
+                root->left=temp;
+            else
+                root->right=temp;
+        }
+    root=BalancingI(root,data);
+    return root;
+}
 int main()
 {
     int r,i;
@@ -116,8 +131,7 @@ int main()
         int val;
         printf("Enter the value to be inserted: ");
         scanf("%d",&val);
-        insertNode(val);
-        root=Balancing(root,val);
+        root=insertNode(root,val);
     }
     printf("Preorder: ");
     preorder(root);
