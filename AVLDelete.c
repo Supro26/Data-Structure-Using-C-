@@ -91,19 +91,19 @@ tree *BalancingI(tree *root,int data)
 tree *BalancingD(tree *root,int data)
 {
         int BF=balanceFac(root);
-        if(BF>1 && data>root->left->data)
+        if(BF>1 && (balanceFac(root->left)==1 || balanceFac(root->left)==0))
         {
             root = RRRotate(root);
         }
-        else if(BF<-1 && data<root->right->data)
+        else if(BF<-1 && (balanceFac(root->right)==-1 || balanceFac(root->right)==0))
         {
             root = LLRotate(root);
         }
-        else if(BF>1 && data<root->left->data)
+        else if(BF>1 && balanceFac(root->left)==-1)
         {
             root = LRRotate(root);
         }
-        else if(BF<-1 && data>root->right->data)
+        else if(BF<-1 && balanceFac(root->right)==1)
         {
             root = RLRotate(root);
         }
@@ -124,10 +124,15 @@ int main()
         scanf("%d",&val);
         root=insertNode(root,val);
     }
-    printf("Enter the value to be deleted: ");
-    int del;
-    scanf("%d",&del);
-    root=deleteNode(root,del);
+    printf("Enter the number of nodes to be deleted: ");
+    scanf("%d",&i);
+    for(int j=0;j<i;j++)
+    {
+        printf("Enter the value to be deleted: ");
+        int del;
+        scanf("%d",&del);
+        root=deleteNode(root,del);
+    }
     printf("Preorder: ");
     preorder(root);
     printf("\n");
